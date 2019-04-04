@@ -1,0 +1,10 @@
+autoScalingKey
+autoScalingKey.pub
+terraform.tfvars
+terraform.tfstate
+terraform.tfstate.backup
+.terraform.*
+.terraform/*
+.DS_Store
+
+
