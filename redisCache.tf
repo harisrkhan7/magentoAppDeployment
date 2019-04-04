@@ -7,5 +7,4 @@ resource "alicloud_kvstore_instance" "redisCache" {
   instance_name  = "redis"
   password       = "${var.redis_cache_password}"
   vswitch_id     = "${alicloud_vswitch.vsw.id}"
-  security_ips = ["${alicloud_security_group.default.id}"]
 }

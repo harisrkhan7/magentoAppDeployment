@@ -41,6 +41,7 @@ resource "alicloud_ess_scaling_configuration" "config" {
   user_data = "config_service.sh --portrange=${alicloud_security_group_rule.allow_all_tcp.port_range}"
   internet_max_bandwidth_out = 1
   key_name = "${var.public_key_name}" 
+
 }
 
 resource "alicloud_ess_scaling_rule" "addOneInstance" {
@@ -57,7 +58,7 @@ resource "alicloud_ess_alarm" "eightyPercentCpuUtilization" {
     metric_name = "CpuUtilization"
     period = 300
     statistics = "Average"
-    threshold = 80
+    threshold = 800
     comparison_operator = ">="
     evaluation_count = 2 
 }
