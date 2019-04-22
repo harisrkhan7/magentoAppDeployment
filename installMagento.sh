@@ -25,7 +25,7 @@ DEBIAN_FRONTEND=noninteractive apt-get upgrade -q -y -u  -o \
    Dpkg::Options::="--force-confdef" --allow-downgrades \
    --allow-remove-essential --allow-change-held-packages \
    --allow-change-held-packages --allow-unauthenticated;
-   
+
 ##### Nginx Installation
 
 #Install Nginx
@@ -73,33 +73,33 @@ EOF
 composer create-project --repository=https://repo.magento.com/ magento/project-community-edition magento 
 
 #Change Permissions of magneto install directory
- cd /var/www/html/magento
+cd /var/www/html/magento
  
- find var generated vendor pub/static pub/media app/etc -type f -exec chmod g+w {} +
- find var generated vendor pub/static pub/media app/etc -type d -exec chmod g+ws {} +
- chown -R :www-data . # Ubuntu
- chmod u+x bin/magento
- chmod -R a+w+r var
- chmod -R a+w+r app
+find var generated vendor pub/static pub/media app/etc -type f -exec chmod g+w {} +
+find var generated vendor pub/static pub/media app/etc -type d -exec chmod g+ws {} +
+chown -R :www-data . # Ubuntu
+chmod u+x bin/magento
+chmod -R a+w+r var
+chmod -R a+w+r app
 
- cd /var/www/html/magento#Install Magneto
+cd /var/www/html/magento#Install Magneto
 
- sudo bin/magento setup:install \
- --base-url="$BASE_URL" \
- --db-host="$DB_HOST" \
- --db-name="$DB_NAME" \
- --db-user="$DB_USER" \
- --db-password="$DB_PASS" \
- --backend-frontname="$BACKEND_FRONTNAME" \
- --admin-firstname="$ADMIN_FIRST_NAME" \
- --admin-lastname="$ADMIN_LAST_NAME" \
- --admin-email="$ADMIN_EMAIL" \
- --admin-user="$ADMIN_USERNAME" \
- --admin-password="$ADMIN_PASSWORD" \
- --language="$LANGUAGE" \
- --currency="$CURRENCY" \
- --timezone="$TIMEZONE" \
- --use-rewrites=1
+sudo bin/magento setup:install \
+--base-url="$BASE_URL" \
+--db-host="$DB_HOST" \
+--db-name="$DB_NAME" \
+--db-user="$DB_USER" \
+--db-password="$DB_PASS" \
+--backend-frontname="$BACKEND_FRONTNAME" \
+--admin-firstname="$ADMIN_FIRST_NAME" \
+--admin-lastname="$ADMIN_LAST_NAME" \
+--admin-email="$ADMIN_EMAIL" \
+--admin-user="$ADMIN_USERNAME" \
+--admin-password="$ADMIN_PASSWORD" \
+--language="$LANGUAGE" \
+--currency="$CURRENCY" \
+--timezone="$TIMEZONE" \
+--use-rewrites=1
 
 #Switch to developer mode
 cd /var/www/html/magento/bin  
@@ -119,8 +119,8 @@ upstream fastcgi_backend {
  } 
 EOF
 
-ln -s /etc/nginx/sites-available/magento /etc/nginx/sites-enabled
 #Link the newly created Virtual Host to the nginx configuration
+ln -s /etc/nginx/sites-available/magento /etc/nginx/sites-enabled
 
 #Verify the nginx syntax
 nginx -t
