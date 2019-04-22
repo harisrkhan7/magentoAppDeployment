@@ -17,9 +17,7 @@ resource "alicloud_ess_scaling_group" "scaling" {
   vswitch_ids = ["${alicloud_vswitch.vsw.id}"]
   loadbalancer_ids = ["${alicloud_slb.master.id}"]
   db_instance_ids = ["${alicloud_db_instance.master.id}"]
-
-  depends_on = ["alicloud_slb_listener.tcp"]
-
+  depends_on = ["alicloud_slb_listener.tcp", "alicloud_db_account_privilege.default"]
 }
 
 resource "alicloud_ess_scaling_configuration" "config" {
@@ -31,14 +29,12 @@ resource "alicloud_ess_scaling_configuration" "config" {
   enable = true
   force_delete = true
   
-
   instance_type        = "${data.alicloud_instance_types.2c4g.instance_types.0.id}"
   system_disk_category = "cloud_efficiency"
   security_group_id     = "${alicloud_security_group.default.id}"
   instance_name        = "web"
   
-  
-  user_data = "config_service.sh --portrange=${alicloud_security_group_rule.allow_all_tcp.port_range}"
+  user_data = "${data.template_file.provisionMagento.rendered}"
   internet_max_bandwidth_out = 1
   key_name = "${var.public_key_name}" 
 

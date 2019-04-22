@@ -15,9 +15,27 @@ resource "alicloud_db_instance" "master" {
     instance_type = "rds.mysql.t1.small"
     instance_storage = "30"
     vswitch_id = "${alicloud_vswitch.vsw.id}"
+    security_ips = ["0.0.0.0/0"]
+
 }
 resource "alicloud_db_database" "default" {
     instance_id = "${alicloud_db_instance.master.id}"
     name = "tf_database"
     character_set = "utf8"
+}
+resource "alicloud_db_connection" "default" {
+    instance_id = "${alicloud_db_instance.master.id}"
+    connection_prefix = "alicloud"
+    port = "3306"
+}
+resource "alicloud_db_account" "default" {
+    instance_id = "${alicloud_db_instance.master.id}"
+    name = "${var.magento_db_user}"
+    password = "${var.magento_db_password}"
+}
+resource "alicloud_db_account_privilege" "default" {
+    instance_id = "${alicloud_db_instance.master.id}"
+    account_name = "${alicloud_db_account.default.name}"
+    privilege = "ReadWrite"
+    db_names = ["${alicloud_db_database.default.name}"]
 }
