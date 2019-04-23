@@ -77,12 +77,15 @@ cd /var/www/html/magento
  
 find var generated vendor pub/static pub/media app/etc -type f -exec chmod g+w {} +
 find var generated vendor pub/static pub/media app/etc -type d -exec chmod g+ws {} +
-chown -R :www-data . # Ubuntu
+chown -R :www-data . 
+
+# Ubuntu
 chmod u+x bin/magento
 chmod -R a+w+r var
 chmod -R a+w+r app
 
-cd /var/www/html/magento#Install Magneto
+cd /var/www/html/magento
+#Install Magneto
 
 sudo bin/magento setup:install \
 --base-url="$BASE_URL" \
@@ -129,3 +132,4 @@ nginx -t
 systemctl restart nginx
 
 config_service.sh --portrange="${PORT_RANGE}"
+
