@@ -7,6 +7,7 @@ variable "public_key_path" {
     type="string"
     default="autoscalingKey.pub"
 }
+
 variable "private_key_path" {
   type="string"
   default="autoscalingKey"

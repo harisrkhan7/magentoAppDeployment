@@ -5,10 +5,14 @@ data "template_file" "provisionMagento" {
     MAGENTO_REPO_USERNAME = "${var.magento_public_key}"
     MAGENTO_REPO_PASSWORD = "${var.magento_private_key}"
 
-    DB_HOST = "${alicloud_db_instance.master.id}"
+    DB_HOST = "${alicloud_db_connection.default.ip_address}"
     DB_NAME = "${alicloud_db_database.default.name}"
     DB_USER = "${alicloud_db_account.default.name}"
     DB_PASSWORD = "${alicloud_db_account.default.password}"
+    HOST_NAME = "${alicloud_slb.master.address}"
+
+    REDIS_HOST_NAME = "${alicloud_kvstore_instance.redisCache.connection_domain}"
+    REDIS_HOST_PASSWORD = "${alicloud_kvstore_instance.redisCache.password}"
 
     ADMIN_FIRST_NAME = "${var.magento_admin_first_name}"
     ADMIN_LAST_NAME = "${var.magento_admin_last_name}"

@@ -8,7 +8,6 @@ data "alicloud_db_instances" "db_instances_ds" {
 }
 EOF
 }
-
 resource "alicloud_db_instance" "master" {
     engine = "MySQL"
     engine_version = "5.7"

@@ -6,35 +6,16 @@ resource "alicloud_slb" "master" {
   specification = "slb.s1.small"
   vswitch_id = "${alicloud_vswitch.vsw.id}"
 }
-
-resource "alicloud_slb_acl" "acl" {
-  name = "master-acl"
-  ip_version = "ipv4"
-  entry_list = [
-    {
-      entry="10.10.10.0/24"
-      comment="first"
-    },
-    {
-      entry="168.10.10.0/24"
-      comment="second"
-    },
-    {
-      entry="172.10.10.0/24"
-      comment="third"
-    },
-  ]
-}
-
-resource "alicloud_slb_listener" "tcp" {
+resource "alicloud_slb_listener" "http" {
   load_balancer_id = "${alicloud_slb.master.id}"
-  backend_port = "22"
-  frontend_port = "22"
-  protocol = "tcp"
+  health_check = "off"
+  backend_port = "80"
+  frontend_port = "80"
+  protocol = "http"
   bandwidth = "10"
-  health_check_type = "tcp"
-  acl_status                = "on"
-  acl_type                  = "white"
-  acl_id                    = "${alicloud_slb_acl.acl.id}"
-  established_timeout       = 600
+  sticky_session = "on"
+  sticky_session_type = "insert"
+  cookie = "testslblistenercookie"
+  cookie_timeout = 86400
+  acl_status                = "off"
 }

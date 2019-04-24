@@ -3,13 +3,11 @@ data "alicloud_instance_types" "2c4g" {
   cpu_core_count = 2
   memory_size = 4
 }
-
 data "alicloud_images" "default" {
   name_regex  = "^ubuntu"
   most_recent = true
   owners      = "system"
 }
-
 resource "alicloud_ess_scaling_group" "scaling" {
   min_size           = 1
   max_size           = 2
@@ -17,9 +15,8 @@ resource "alicloud_ess_scaling_group" "scaling" {
   vswitch_ids = ["${alicloud_vswitch.vsw.id}"]
   loadbalancer_ids = ["${alicloud_slb.master.id}"]
   db_instance_ids = ["${alicloud_db_instance.master.id}"]
-  depends_on = ["alicloud_slb_listener.tcp", "alicloud_db_account_privilege.default"]
+  depends_on = ["alicloud_slb_listener.http", "alicloud_db_account_privilege.default"]
 }
-
 resource "alicloud_ess_scaling_configuration" "config" {
   scaling_group_id  = "${alicloud_ess_scaling_group.scaling.id}"
 
@@ -39,12 +36,11 @@ resource "alicloud_ess_scaling_configuration" "config" {
   key_name = "${var.public_key_name}" 
 
 }
-
 resource "alicloud_ess_scaling_rule" "addOneInstance" {
   scaling_group_id = "${alicloud_ess_scaling_group.scaling.id}"
   adjustment_type  = "QuantityChangeInCapacity"
   adjustment_value = 1
-  cooldown         = 60
+  cooldown         = 600
 }
 resource "alicloud_ess_alarm" "eightyPercentCpuUtilization" {
     name = "alarm-eightyPercentCpuUtilisation"
@@ -52,9 +48,9 @@ resource "alicloud_ess_alarm" "eightyPercentCpuUtilization" {
     scaling_group_id = "${alicloud_ess_scaling_group.scaling.id}"
     metric_type = "system"
     metric_name = "CpuUtilization"
-    period = 300
+    period = 900
     statistics = "Average"
-    threshold = 800
+    threshold = 2400
     comparison_operator = ">="
     evaluation_count = 2 
 }
