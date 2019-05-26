@@ -47,7 +47,7 @@ resource "alicloud_ess_alarm" "eightyPercentCpuUtilization" {
     alarm_actions = ["${alicloud_ess_scaling_rule.addOneInstance.ari}"]
     scaling_group_id = "${alicloud_ess_scaling_group.scaling.id}"
     metric_type = "system"
-    metric_name = "CpuUtilization_demo"
+    metric_name = "CpuUtilization"
     period = 60
     statistics = "Average"
     threshold = 5
