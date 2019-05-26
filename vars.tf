@@ -46,7 +46,7 @@ variable "magento_currency" {
 }
 variable "magento_timezone" {
   type="string"
-  default="America/Chicago"
+  default="Australia/Sydney"
 }
 variable "magento_db_user" {
     type = "string"

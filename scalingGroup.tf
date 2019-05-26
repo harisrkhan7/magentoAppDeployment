@@ -40,7 +40,7 @@ resource "alicloud_ess_scaling_rule" "addOneInstance" {
   scaling_group_id = "${alicloud_ess_scaling_group.scaling.id}"
   adjustment_type  = "QuantityChangeInCapacity"
   adjustment_value = 1
-  cooldown         = 600
+  cooldown         = 0
 }
 resource "alicloud_ess_alarm" "eightyPercentCpuUtilization" {
     name = "alarm-eightyPercentCpuUtilisation"
@@ -48,9 +48,9 @@ resource "alicloud_ess_alarm" "eightyPercentCpuUtilization" {
     scaling_group_id = "${alicloud_ess_scaling_group.scaling.id}"
     metric_type = "system"
     metric_name = "CpuUtilization"
-    period = 900
+    period = 60
     statistics = "Average"
-    threshold = 2400
+    threshold = 5
     comparison_operator = ">="
-    evaluation_count = 2 
+    evaluation_count = 1
 }

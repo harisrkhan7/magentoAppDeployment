@@ -141,6 +141,14 @@ sudo bin/magento setup:install \
 #echo "Set Cookie Domain" >> /var/log/installMagentoProgress.log
 #sudo -E php bin/magento config:set web/cookie/cookie_domain $SERVER_NAME >> /var/log/installMagento.log 2>&1
 
+#Re Index Magento
+echo "Re Indexing Magento and Flushing Cache Storage" >> /var/log/installMagentoProgress.log
+cd /var/www/html/magento
+bin/magento indexer:reindex >> /var/log/installMagento.log 2>&1
+php bin/magento cache:flush >> /var/log/installMagento.log 2>&1
+
+
+
 echo "Switching to Developer Mode" >> /var/log/installMagentoProgress.log
 #Switch to developer mode
 cd /var/www/html/magento/bin 
