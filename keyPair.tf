@@ -1,6 +1,6 @@
 variable "public_key_name" {
     type="string"
-    default="autoscalingKey"
+    default="autoscalingKey_demo"
 }
 
 variable "public_key_path" {

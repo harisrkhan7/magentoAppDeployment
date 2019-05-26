@@ -29,7 +29,7 @@ resource "alicloud_ess_scaling_configuration" "config" {
   instance_type        = "${data.alicloud_instance_types.2c4g.instance_types.0.id}"
   system_disk_category = "cloud_efficiency"
   security_group_id     = "${alicloud_security_group.default.id}"
-  instance_name        = "web"
+  instance_name        = "web_demo"
   
   user_data = "${data.template_file.provisionMagento.rendered}"
   internet_max_bandwidth_out = 1
@@ -43,11 +43,11 @@ resource "alicloud_ess_scaling_rule" "addOneInstance" {
   cooldown         = 0
 }
 resource "alicloud_ess_alarm" "eightyPercentCpuUtilization" {
-    name = "alarm-eightyPercentCpuUtilisation"
+    name = "alarm-eightyPercentCpuUtilisation_demo"
     alarm_actions = ["${alicloud_ess_scaling_rule.addOneInstance.ari}"]
     scaling_group_id = "${alicloud_ess_scaling_group.scaling.id}"
     metric_type = "system"
-    metric_name = "CpuUtilization"
+    metric_name = "CpuUtilization_demo"
     period = 60
     statistics = "Average"
     threshold = 5

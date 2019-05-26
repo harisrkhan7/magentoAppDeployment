@@ -1,5 +1,5 @@
 resource "alicloud_slb" "master" {
-  name                 = "master-slb"
+  name                 = "master-slb_demo"
   internet             = true
   internet_charge_type = "paybytraffic"
   bandwidth            = 5
@@ -15,7 +15,7 @@ resource "alicloud_slb_listener" "http" {
   bandwidth = "10"
   sticky_session = "on"
   sticky_session_type = "insert"
-  cookie = "testslblistenercookie"
+  cookie = "testslblistenercookie_demo"
   cookie_timeout = 86400
   acl_status                = "off"
 }

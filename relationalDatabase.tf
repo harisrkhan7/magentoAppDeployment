@@ -19,12 +19,12 @@ resource "alicloud_db_instance" "master" {
 }
 resource "alicloud_db_database" "default" {
     instance_id = "${alicloud_db_instance.master.id}"
-    name = "tf_database"
+    name = "tf_database_demo"
     character_set = "utf8"
 }
 resource "alicloud_db_connection" "default" {
     instance_id = "${alicloud_db_instance.master.id}"
-    connection_prefix = "alicloud"
+    connection_prefix = "alicloud_demo"
     port = "3306"
 }
 resource "alicloud_db_account" "default" {

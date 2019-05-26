@@ -18,7 +18,7 @@ provider "alicloud" {
 
 #Create vpc
 resource "alicloud_vpc" "vpc" {
-  name       = "default"
+  name       = "default_demo"
   cidr_block = "172.16.0.0/12"
 }
 
@@ -30,8 +30,8 @@ resource "alicloud_vswitch" "vsw" {
 
 # Create security group
 resource "alicloud_security_group" "default" {
-  name        = "default"
-  description = "default"
+  name        = "default_demo"
+  description = "default demo"
   vpc_id = "${alicloud_vpc.vpc.id}"
 }
 resource "alicloud_security_group_rule" "allow_all_tcp" {
