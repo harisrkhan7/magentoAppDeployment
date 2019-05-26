@@ -24,7 +24,7 @@ resource "alicloud_db_database" "default" {
 }
 resource "alicloud_db_connection" "default" {
     instance_id = "${alicloud_db_instance.master.id}"
-    connection_prefix = "alicloud"
+    connection_prefix = "aliclouddemo"
     port = "3306"
 }
 resource "alicloud_db_account" "default" {
